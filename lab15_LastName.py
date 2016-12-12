@@ -4,7 +4,42 @@
 #Ahdia
 
 #problem 1: Craps
+from random import randint
 
+def roll_dice(times=1):
+  rolls = []
+  for i in range(0, times):
+    rolls = rolls + [randint(1,6)]
+  
+  printNow("Rolled "+str(times)+" dice. Result: " + ", ".join([str(x) for x in rolls]))
+  return rolls
+
+def play_craps():
+  roll_two_dice = roll_dice(2)
+  sum_dice = sum(roll_two_dice)
+  printNow("Sum of dice: "+str(sum_dice))
+
+  if sum_dice in [7, 11]:
+    printNow("Instant win! :) Congratulations!")
+    return
+  elif sum_dice in [2, 3, 12]:
+    printNow("Instant Lose. :( Hope you come back and play again.")
+    return
+  else:
+    printNow("Got a point, your point is "+str(sum_dice)+".\n")
+    point = sum_dice
+
+  while true:
+    new_sum = sum(roll_dice(2))
+    printNow("Sum of dice: "+str(new_sum))
+    if new_sum == point:
+      printNow("You matched your point, you win! :) Congratulations!\n")
+      break
+    elif new_sum == 7:
+      printNow("Bummer, you rolled a 7, you lose. :( Hope you come back and play again.\n")
+      break
+    else:
+      printNow("No 7 and no Point, re-rolling.\n")
 
 #problem 2: Creates and prints calendar of user's birthday
 def birthCalendar():
@@ -42,3 +77,5 @@ def decDate():
     print "The Declaration of Independence was ratified on Saturday"
   if day == 6:
     print "The Declaration of Independence was ratified on Sunday"
+
+play_craps()
